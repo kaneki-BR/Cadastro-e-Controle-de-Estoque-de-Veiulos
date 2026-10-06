@@ -1,77 +1,89 @@
 ﻿@model IEnumerable<Revemar.Domain.Entities.Veiculo>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Estoque de Veículos";
 }
 
-<h1>Index</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>🚗 Estoque de Veículos</h2>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Cadastrar Novo Veículo
+    </a>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Marca)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Modelo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ano)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Preco)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tipo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Situacao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataCadastro)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Marca)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Modelo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ano)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Preco)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tipo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Situacao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataCadastro)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+@if (TempData["Sucesso"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Sucesso"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 }
-    </tbody>
-</table>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Ano</th>
+                        <th>Cor</th>
+                        <th>Tipo</th>
+                        <th>Preço</th>
+                        <th>Situação</th>
+                        <th>Data de Cadastro</th>
+                        <th class="text-end">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="8" class="text-center py-4 text-muted">
+                                Nenhum veículo cadastrado no momento.
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="fw-bold">@item.Marca</td>
+                                <td>@item.Modelo</td>
+                                <td>@item.Ano</td>
+                                <td>@item.Cor</td>
+                                <td>@item.DataCadastro</td>
+                                <td><span class="badge bg-secondary">@item.Tipo</span></td>
+                                <td class="fw-bold text-success">@item.Preco.ToString("C")</td>
+                                <td>
+                                    @switch (item.Situacao)
+                                    {
+                                        case Revemar.Domain.Enums.SituacaoEstoque.Disponivel:
+                                            <span class="badge bg-success">Disponível</span>
+                                            break;
+                                        case Revemar.Domain.Enums.SituacaoEstoque.Reservado:
+                                            <span class="badge bg-warning text-dark">Reservado</span>
+                                            break;
+                                        case Revemar.Domain.Enums.SituacaoEstoque.Vendido:
+                                            <span class="badge bg-info text-dark">Vendido</span>
+                                            break;
+                                        case Revemar.Domain.Enums.SituacaoEstoque.Inativo:
+                                            <span class="badge bg-danger">Inativo</span>
+                                            break;
+                                    }
+                                </td>
+                                <td class="text-end">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Editar</a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Detalhes</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Excluir</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
