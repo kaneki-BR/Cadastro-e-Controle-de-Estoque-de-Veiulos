@@ -22,7 +22,11 @@ namespace Revemar.Web.Controllers
         // GET: Veiculos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Veiculos.ToListAsync());
+            var veiculos = await _context.Veiculos
+                .OrderByDescending(v => v.Id)
+                .ToListAsync();
+
+            return View(veiculos);
         }
 
         // GET: Veiculos/Details/5
@@ -60,6 +64,7 @@ namespace Revemar.Web.Controllers
             {
                 _context.Add(veiculo);
                 await _context.SaveChangesAsync();
+                TempData["Sucesso"] = "Veículo cadastrado com sucesso!";
                 return RedirectToAction(nameof(Index));
             }
             return View(veiculo);
@@ -99,6 +104,7 @@ namespace Revemar.Web.Controllers
                 {
                     _context.Update(veiculo);
                     await _context.SaveChangesAsync();
+                    TempData["Sucesso"] = "Veículo atualizado com sucesso!";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -143,10 +149,12 @@ namespace Revemar.Web.Controllers
             if (veiculo != null)
             {
                 _context.Veiculos.Remove(veiculo);
+                await _context.SaveChangesAsync();
+                TempData["Sucesso"] = "Veículo excluído do estoque com sucesso!";
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+
         }
 
         private bool VeiculoExists(int id)
