@@ -1,5 +1,4 @@
 ﻿using Revemar.Domain.Enums;
-using Revemar.Domain.Enuns;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

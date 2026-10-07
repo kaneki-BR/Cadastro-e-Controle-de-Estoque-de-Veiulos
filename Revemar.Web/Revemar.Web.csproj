@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Revemar.Domain\Revemar.Domain.csproj" />
     <ProjectReference Include="..\Revemar.Infraestructure\Revemar.Infraestructure.csproj" />
   </ItemGroup>
 

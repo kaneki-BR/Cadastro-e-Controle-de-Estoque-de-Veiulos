@@ -48,8 +48,9 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label asp-for="Tipo" class="form-label fw-bold"></label>
-                            <select asp-for="Tipo" class="form-select" asp-items="Html.GetEnumSelectList<Revemar.Domain.Enums.TipoVeiculo>()"></select>
+                            <select asp-for="Tipo" class="form-select" asp-items="Html.GetEnumSelectList<Revemar.Domain.Enums.TipoVeiculo>()">
                                 <option value="">-- Selecione o Tipo --</option>
+                            </select>
                             <span asp-validation-for="Tipo" class="text-danger"></span>
                         </div>
                         <div class="col-md-6 mb-3">
