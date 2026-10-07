@@ -1,68 +1,76 @@
 ﻿@model Revemar.Domain.Entities.Veiculo
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Cadastrar Veículo";
 }
 
-<h1>Create</h1>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Cadastrar Novo Veículo</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-<h4>Veiculo</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Marca" class="control-label"></label>
-                <input asp-for="Marca" class="form-control" />
-                <span asp-validation-for="Marca" class="text-danger"></span>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Marca" class="form-label fw-bold"></label>
+                            <input asp-for="Marca" class="form-control" placeholder="Ex: Toyota" />
+                            <span asp-validation-for="Marca" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Modelo" class="form-label fw-bold"></label>
+                            <input asp-for="Modelo" class="form-control" placeholder="Ex: Corolla" />
+                            <span asp-validation-for="Modelo" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Ano" class="form-label fw-bold"></label>
+                            <input asp-for="Ano" class="form-control" type="number" placeholder="Ex: 2023" />
+                            <span asp-validation-for="Ano" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Cor" class="form-label fw-bold"></label>
+                            <input asp-for="Cor" class="form-control" placeholder="Ex: Prata" />
+                            <span asp-validation-for="Cor" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Preco" class="form-label fw-bold"></label>
+                            <input asp-for="Preco" class="form-control" type="number" step="0.01" placeholder="Ex: 110000.00" />
+                            <span asp-validation-for="Preco" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Tipo" class="form-label fw-bold"></label>
+                            <select asp-for="Tipo" class="form-select" asp-items="Html.GetEnumSelectList<Revemar.Domain.Enums.TipoVeiculo>()"></select>
+                                <option value="">-- Selecione o Tipo --</option>
+                            <span asp-validation-for="Tipo" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Situacao" class="form-label fw-bold"></label>
+                            <select asp-for="Situacao" class="form-select" asp-items="Html.GetEnumSelectList<Revemar.Domain.Enums.SituacaoEstoque>()"></select>
+                            <span asp-validation-for="Situacao" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+                        <button type="submit" class="btn btn-success">Salvar Veículo</button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Modelo" class="control-label"></label>
-                <input asp-for="Modelo" class="form-control" />
-                <span asp-validation-for="Modelo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Ano" class="control-label"></label>
-                <input asp-for="Ano" class="form-control" />
-                <span asp-validation-for="Ano" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cor" class="control-label"></label>
-                <input asp-for="Cor" class="form-control" />
-                <span asp-validation-for="Cor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Preco" class="control-label"></label>
-                <input asp-for="Preco" class="form-control" />
-                <span asp-validation-for="Preco" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Tipo" class="control-label"></label>
-                <select asp-for="Tipo" class="form-control"></select>
-                <span asp-validation-for="Tipo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Situacao" class="control-label"></label>
-                <select asp-for="Situacao" class="form-control"></select>
-                <span asp-validation-for="Situacao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DataCadastro" class="control-label"></label>
-                <input asp-for="DataCadastro" class="form-control" />
-                <span asp-validation-for="DataCadastro" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
