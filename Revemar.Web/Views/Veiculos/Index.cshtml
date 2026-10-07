@@ -54,7 +54,6 @@
                                 <td>@item.Modelo</td>
                                 <td>@item.Ano</td>
                                 <td>@item.Cor</td>
-                                <td>@item.DataCadastro</td>
                                 <td><span class="badge bg-secondary">@item.Tipo</span></td>
                                 <td class="fw-bold text-success">@item.Preco.ToString("C")</td>
                                 <td>
@@ -74,6 +73,7 @@
                                             break;
                                     }
                                 </td>
+                                <td>@item.DataCadastro</td>
                                 <td class="text-end">
                                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Editar</a>
                                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Detalhes</a>
