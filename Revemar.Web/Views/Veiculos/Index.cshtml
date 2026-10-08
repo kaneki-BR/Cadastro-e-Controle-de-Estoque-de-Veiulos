@@ -73,7 +73,7 @@
                                             break;
                                     }
                                 </td>
-                                <td>@item.DataCadastro</td>
+                                <td>@item.DataCadastro.ToString("dd/MM/yyyy 'às' HH:mm")</td>
                                 <td class="text-end">
                                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Editar</a>
                                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Detalhes</a>
