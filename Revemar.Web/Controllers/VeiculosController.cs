@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Revemar.Domain.Entities;
+using Revemar.Domain.Enums;
 using Revemar.Infrastructure.Data;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Revemar.Web.Controllers
 {
@@ -23,6 +24,7 @@ namespace Revemar.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var veiculos = await _context.Veiculos
+                .Where(v => v.Situacao != SituacaoEstoque.Inativo) // Filtro do Soft Delete
                 .OrderByDescending(v => v.Id)
                 .ToListAsync();
 
@@ -148,9 +150,17 @@ namespace Revemar.Web.Controllers
             var veiculo = await _context.Veiculos.FindAsync(id);
             if (veiculo != null)
             {
-                _context.Veiculos.Remove(veiculo);
+                // EXCLUSÃO LÓGICA: Em vez de deletar, mudamos a situação para Inativo
+                veiculo.Situacao = SituacaoEstoque.Inativo;
+
+                _context.Update(veiculo);
                 await _context.SaveChangesAsync();
-                TempData["Sucesso"] = "Veículo excluído do estoque com sucesso!";
+
+                TempData["Sucesso"] = "Veículo excluído (inativado) com sucesso!";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Veículo não encontrado.";
             }
 
             return RedirectToAction(nameof(Index));
