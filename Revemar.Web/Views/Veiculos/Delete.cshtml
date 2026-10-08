@@ -35,8 +35,25 @@
                     <dd class="col-sm-8">
                         <span class="badge bg-primary">@Model.Situacao</span>
                     </dd>
+
+                    <hr/>
+
                     <dt class="col-sm-4 text-muted">Data de Cadastro:</dt>
                     <dd class="col-sm-8">@Model.DataCadastro.ToString("dd/MM/yyyy 'às' HH:mm")</dd>
+
+                    <dt class="col-sm-4 text-muted">
+                        Última Edição no Sistema
+                    </dt>
+                    <dd class="col-sm-8">
+                        @if (Model.DataAtualizacao.HasValue)
+                        {
+                            <span>@Model.DataAtualizacao.Value.ToString("dd/MM/yyyy 'às' HH:mm")</span>
+                        }
+                        else
+                        {
+                            <span class="text-secondary fst-italic">Nunca atualizado</span>
+                        }
+                    </dd>
                 </dl>
             </div>
             <div class="card-footer d-flex justify-content-between">
