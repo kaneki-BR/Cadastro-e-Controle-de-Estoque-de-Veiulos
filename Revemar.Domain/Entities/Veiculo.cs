@@ -35,5 +35,7 @@ namespace Revemar.Domain.Entities
         public SituacaoEstoque Situacao { get; set; } = SituacaoEstoque.Disponivel;
 
         public DateTime DataCadastro { get; set; } = DateTime.Now;
+
+        public DateTime? DataAtualizacao { get; set; } // Nullable, pois no cadastro não há edição ainda
     }
 }
