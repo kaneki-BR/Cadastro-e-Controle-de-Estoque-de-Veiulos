@@ -6,9 +6,6 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2>🚗 Estoque de Veículos</h2>
-    <a asp-action="Create" class="btn btn-primary">
-        <i class="bi bi-plus-circle"></i> Cadastrar Novo Veículo
-    </a>
 </div>
 
 @if (TempData["Sucesso"] != null)
@@ -18,6 +15,27 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
+
+<div class="d-flex justify-content-between align-items-center mb-4 gap-3 flex-wrap">
+    <!-- Formulário de Pesquisa -->
+    <form asp-action="Index" method="get" class="flex-grow-1" style="max-width: 500px;">
+        <div class="input-group">
+            <input type="text" name="searchString" value="@ViewData["CurrentFilter"]"
+                   class="form-control" placeholder="Buscar por Marca ou Modelo...">
+
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-search"></i> Buscar
+            </button>
+
+            <a asp-action="Index" class="btn btn-outline-secondary">Limpar</a>
+        </div>
+    </form>
+
+    <!-- Botão Novo Veículo -->
+    <a asp-action="Create" class="btn btn-primary text-nowrap">
+        <i class="bi bi-plus-circle"></i> Cadastrar Novo Veículo
+    </a>
+</div>
 
 <div class="card shadow-sm">
     <div class="card-body p-0">

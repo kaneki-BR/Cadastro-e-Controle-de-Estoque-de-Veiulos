@@ -21,12 +21,31 @@ namespace Revemar.Web.Controllers
         }
 
         // GET: Veiculos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var veiculos = await _context.Veiculos
-                .Where(v => v.Situacao != SituacaoEstoque.Inativo) // Filtro do Soft Delete
-                .OrderByDescending(v => v.Id)
-                .ToListAsync();
+            // Armazena o termo pesquisado na ViewData para manter o texto na barra após o recarregamento
+            ViewData["CurrentFilter"] = searchString;
+
+            // 1. Monta a query base (mantendo a regra do Soft Delete que já fizemos)
+            // Usamos AsQueryable() para podermos adicionar os filtros dinamicamente
+            var query = _context.Veiculos
+                .Where(v => v.Situacao != SituacaoEstoque.Inativo)
+                .AsQueryable();
+
+            // 2. Se o usuário digitou algo, adicionamos a condição de filtro (WHERE)
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                // Transformamos tudo em maiúsculo (ToUpper) para evitar problemas com Case Sensitive no Oracle 
+                // Ex: pesquisar por "fiat" achará "Fiat", "FIAT", etc.
+                searchString = searchString.ToUpper();
+
+                query = query.Where(v =>
+                    v.Marca.ToUpper().Contains(searchString) ||
+                    v.Modelo.ToUpper().Contains(searchString));
+            }
+
+            // 3. Ordena os resultados e executa a query final no banco (ToListAsync)
+            var veiculos = await query.OrderByDescending(v => v.Id).ToListAsync();
 
             return View(veiculos);
         }
