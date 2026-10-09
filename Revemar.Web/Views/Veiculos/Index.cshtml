@@ -25,16 +25,18 @@
                    class="form-control" placeholder="Buscar por Marca ou Modelo...">
 
             <button type="submit" class="btn btn-primary">
-                <i class="bi bi-search"></i> Buscar
+                <i class="bi bi-search me-1"></i> Buscar
             </button>
 
-            <a asp-action="Index" class="btn btn-outline-secondary">Limpar</a>
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-x-circle me-1"></i> Limpar
+            </a>
         </div>
     </form>
 
     <!-- Botão Novo Veículo -->
-    <a asp-action="Create" class="btn btn-primary text-nowrap">
-        <i class="bi bi-plus-circle"></i> Cadastrar Novo Veículo
+    <a asp-action="Create" class="btn btn-success">
+        <i class="bi bi-plus-lg me-1"></i> Cadastrar Veículo
     </a>
 </div>
 
@@ -94,9 +96,15 @@
                                 </td>
                                 <td>@item.DataCadastro.ToString("dd/MM/yyyy 'às' HH:mm")</td>
                                 <td class="text-end">
-                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Editar</a>
-                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Detalhes</a>
-                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Excluir</a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">
+                                        <i class="bi bi-pencil-fill"></i>
+                                    </a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">
+                                        <i class="bi bi-eye-fill"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </a>
                                 </td>
                             </tr>
                         }
