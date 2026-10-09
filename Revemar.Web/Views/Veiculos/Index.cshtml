@@ -114,13 +114,16 @@
                                 </td>
                                 <td>@item.DataCadastro.ToString("dd/MM/yyyy 'às' HH:mm")</td>
                                 <td class="text-end">
-                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning"
+                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar registro">
                                         <i class="bi bi-pencil-fill"></i>
                                     </a>
-                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info"
+                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ver detalhes">
                                         <i class="bi bi-eye-fill"></i>
                                     </a>
-                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger"
+                                       data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Excluir registro">
                                         <i class="bi bi-trash-fill"></i>
                                     </a>
                                 </td>
@@ -171,3 +174,10 @@
         </div>
     </div>
 </div>
+@section Scripts {
+    <script>
+        // Ativa todos os tooltips da página automaticamente
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
+}
