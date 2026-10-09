@@ -45,7 +45,7 @@ namespace Revemar.Web.Controllers
             }
 
             // 3. Configurações de Paginação
-            int pageSize = 10; // Quantidade de veículos por página
+            int pageSize = 7; // Quantidade de veículos por página
             int currentPage = pageNumber ?? 1; // Se a página for nula, assume a página 1
 
             // Conta o total de registros (após o filtro) para saber quantas páginas teremos
