@@ -57,7 +57,7 @@ RevemarEstoque/
 ### 1. Clonar o Repositório
 
 ```bash
-git clone https://github.com/SEU-USUARIO/revemar-estoque-veiculos.git
+git clone https://github.com/Kaneki-BR/Cadastro-e-Controle-de-Estoque-de-Veiulos.git
 cd revemar-estoque-veiculos
 ```
 
@@ -75,7 +75,19 @@ docker run -d --name oracle-xe -p 1521:1521 -e ORACLE_PASSWORD=Herbert_Revemar g
 
 ---
 
-### 3. Aplicar as Migrations do Entity Framework Core
+### 2. Configurar a String de Conexão:
+Abra o arquivo appsettings.json e atualize a chave ConnectionStrings:OracleConnection com as credenciais da sua instância Oracle:
+
+```bash
+{
+  "ConnectionStrings": {
+    "OracleConnection": "User Id=SYSTEM;Password=SUA_SENHA;Data Source=localhost:1521/XEPDB1;"
+  }
+}
+```
+---
+
+### 4. Aplicar as Migrations do Entity Framework Core
 
 Com o contêiner do Oracle ativo, aplique as migrações para criar as tabelas no banco:
 
@@ -107,7 +119,7 @@ Para inspecionar as tabelas criadas pelo Entity Framework Core e visualizar os d
 
 ---
 
-### 4. Executar a Aplicação
+### 5. Executar a Aplicação
 
 * **No Visual Studio:** Pressione `F5` ou clique no botão de execução **Revemar.Web**.
 * **Via Terminal:**
