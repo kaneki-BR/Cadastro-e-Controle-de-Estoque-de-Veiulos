@@ -39,8 +39,22 @@
                             <span asp-validation-for="Cor" class="text-danger"></span>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label asp-for="Preco" class="form-label fw-bold"></label>
-                            <input asp-for="Preco" class="form-control" type="number" step="0.01" placeholder="Ex: 110000.00" />
+                            <label asp-for="Preco" class="form-label fw-bold">Preço de Venda</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light fw-bold text-success">R$</span>
+
+                                <!-- 1. Campo Visível (Sem asp-for, apenas para exibição da máscara) -->
+                                <input type="text"
+                                       id="precoDisplay"
+                                       class="form-control"
+                                       placeholder="0,00"
+                                       autocomplete="off"
+                                       value="@(Model?.Preco > 0 ? Model.Preco.ToString("N2", new System.Globalization.CultureInfo("pt-BR")) : "")" />
+                            </div>
+
+                            <!-- 2. Campo Oculto (Com asp-for, envia o decimal puro com ponto para o C#) -->
+                            <input type="hidden" asp-for="Preco" id="precoReal" value="@(Model?.Preco > 0 ? Model.Preco.ToString("F2", new System.Globalization.CultureInfo("pt-BR")) : "")"/>
+
                             <span asp-validation-for="Preco" class="text-danger"></span>
                         </div>
                     </div>
@@ -72,6 +86,48 @@
 
 @section Scripts {
     @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const precoDisplay = document.getElementById("precoDisplay");
+            const precoReal = document.getElementById("precoReal");
+
+            if (precoDisplay && precoReal) {
+                // Ao carregar a página (ex: tela de Edit), garante que o valor oculto esteja atualizado
+                if (precoDisplay.value) {
+                    atualizarCampos(precoDisplay.value);
+                }
+
+                precoDisplay.addEventListener("input", function (e) {
+                    atualizarCampos(e.target.value);
+                });
+
+                function atualizarCampos(digitos) {
+                    // Remove tudo que não é número
+                    let valueOnlyDigits = digitos.replace(/\D/g, "");
+
+                    if (valueOnlyDigits === "") {
+                        precoDisplay.value = "";
+                        precoReal.value = "";
+                        return;
+                    }
+
+                    // 1. Calcula o valor em decimal (ex: 45000.00) para o C#
+                    let rawValue = (parseFloat(valueOnlyDigits) / 100).toFixed(2);
+
+                    // Atualiza o campo OCULTO (que o asp-for usa e o C# recebe)
+                    precoReal.value = rawValue;
+
+                    // 2. Campo OCULTO: Substitui ponto por VÍRGULA ("110000,00") para o C# em pt-BR ler corretamente
+                    precoReal.value = rawValue.replace(".", ",");
+
+                    // 2. Formata visualmente para o usuário (ex: 45.000,00)
+                    precoDisplay.value = rawValue
+                        .replace(".", ",")
+                        .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+                }
+            }
+        });
+    </script>
 }
