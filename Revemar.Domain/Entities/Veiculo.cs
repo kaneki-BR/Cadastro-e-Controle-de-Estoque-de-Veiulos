@@ -27,7 +27,7 @@ namespace Revemar.Domain.Entities
         [StringLength(30, ErrorMessage = "A cor pode ter no máximo 30 caracteres.")]
         public string Cor { get; set; } = string.Empty;
 
-        [Range(0.01, 99999999.99, ErrorMessage = "O preço deve ser maior que zero.")]
+        [Range(0.01, 999999999.99, ErrorMessage = "O preço deve ser maior que zero ou menor que um bilhão")]
         public decimal Preco { get; set; }
 
         public TipoVeiculo Tipo { get; set; }
