@@ -57,7 +57,7 @@ RevemarEstoque/
 ### 1. Clonar o Repositório
 
 ```bash
-git clone https://github.com/SEU-USUARIO/revemar-estoque-veiculos.git
+git clone https://github.com/SEU-USUARIO/Cadastro-e-Controle-de-Estoque-de-Veiulos.git
 cd revemar-estoque-veiculos
 ```
 
