@@ -47,6 +47,8 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            <!-- Renderiza os alertas temporarios antes do conteudo principal -->
+            <partial name="_Notification" />
             @RenderBody()
         </main>
     </div>

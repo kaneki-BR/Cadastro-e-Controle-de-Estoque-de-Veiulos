@@ -103,7 +103,7 @@ namespace Revemar.Web.Controllers
             {
                 _context.Add(veiculo);
                 await _context.SaveChangesAsync();
-                TempData["Sucesso"] = "Veículo cadastrado com sucesso!";
+                TempData["SuccessMessage"] = "Veículo cadastrado com sucesso!";
                 return RedirectToAction(nameof(Index));
             }
             return View(veiculo);
@@ -134,7 +134,8 @@ namespace Revemar.Web.Controllers
         {
             if (id != veiculo.Id)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = "Veículo não encontrado.";
+                return RedirectToAction(nameof(Index));
             }
 
             if (ModelState.IsValid)
@@ -143,7 +144,7 @@ namespace Revemar.Web.Controllers
                 {
                     _context.Update(veiculo);
                     await _context.SaveChangesAsync();
-                    TempData["Sucesso"] = "Veículo atualizado com sucesso!";
+                    TempData["SuccessMessage"] = "Veículo atualizado com sucesso!";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -193,11 +194,11 @@ namespace Revemar.Web.Controllers
                 _context.Update(veiculo);
                 await _context.SaveChangesAsync();
 
-                TempData["Sucesso"] = "Veículo excluído (inativado) com sucesso!";
+                TempData["SuccessMessage"] = "Veículo inativado (excluído) com sucesso!";
             }
             else
             {
-                TempData["ErrorMessage"] = "Veículo não encontrado.";
+                TempData["ErrorMessage"] = "Erro ao tentar inativar o veículo.";
             }
 
             return RedirectToAction(nameof(Index));
