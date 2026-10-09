@@ -45,7 +45,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container main-content py-4">
         <main role="main" class="pb-3">
             <!-- Renderiza os alertas temporarios antes do conteudo principal -->
             <partial name="_Notification" />
@@ -53,9 +53,15 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - Revemar.Web - <a asp-area="" asp-controller="Veiculos" asp-action="Index">Privacy</a>
+    <footer class="site-footer border-top text-muted bg-light py-3 shadow-sm">
+        <div class="container text-center text-md-start d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <span class="mb-2 mb-md-0">
+                &copy; 2026 - <strong>Revemar Estoque</strong> - Todos os direitos reservados.
+            </span>
+            <div>
+                <a asp-area="" asp-controller="Veiculos" asp-action="Index" class="text-decoration-none text-muted me-3">Estoque</a>
+                <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-decoration-none text-muted">Privacidade</a>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
