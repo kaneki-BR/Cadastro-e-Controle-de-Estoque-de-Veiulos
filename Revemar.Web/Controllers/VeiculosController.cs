@@ -21,7 +21,7 @@ namespace Revemar.Web.Controllers
         }
 
         // GET: Veiculos
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
             // Armazena o termo pesquisado na ViewData para manter o texto na barra após o recarregamento
             ViewData["CurrentFilter"] = searchString;
@@ -44,8 +44,26 @@ namespace Revemar.Web.Controllers
                     v.Modelo.ToUpper().Contains(searchString));
             }
 
-            // 3. Ordena os resultados e executa a query final no banco (ToListAsync)
-            var veiculos = await query.OrderByDescending(v => v.Id).ToListAsync();
+            // 3. Configurações de Paginação
+            int pageSize = 10; // Quantidade de veículos por página
+            int currentPage = pageNumber ?? 1; // Se a página for nula, assume a página 1
+
+            // Conta o total de registros (após o filtro) para saber quantas páginas teremos
+            int totalItems = await query.CountAsync();
+            int totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            // 4. Aplica a ordenação, pula (Skip) os registros das páginas anteriores e pega (Take) os da atual
+            var veiculos = await query
+                .OrderByDescending(v => v.Id)
+                .Skip((currentPage - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            // 5. Envia as informações da paginação para a View através da ViewBag
+            ViewBag.CurrentPage = currentPage;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.HasPrevious = currentPage > 1;
+            ViewBag.HasNext = currentPage < totalPages;
 
             return View(veiculos);
         }

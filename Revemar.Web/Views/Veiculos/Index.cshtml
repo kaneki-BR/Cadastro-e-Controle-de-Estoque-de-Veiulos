@@ -4,8 +4,9 @@
     ViewData["Title"] = "Estoque de Veículos";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>🚗 Estoque de Veículos</h2>
+<div class="d-flex align-items-center mb-4 gap-3 flex-wrap">
+    <h2>Estoque de Veículos</h2>
+    <img src="~/images/logo-revemar-home.png" alt="Ícone Revemar" class="me-2" style="font-synthesis-weight: 247px; height: 60px;" />
 </div>
 
 @if (TempData["Sucesso"] != null)
@@ -102,6 +103,45 @@
                     }
                 </tbody>
             </table>
+            <!-- Paginação Bootstrap 5 -->
+            @if (ViewBag.TotalPages > 1)
+            {
+                <nav aria-label="Navegação de listagem de veículos" class="mt-4">
+                    <ul class="pagination justify-content-center">
+
+                        <!-- Botão Anterior -->
+                        <li class="page-item @(!ViewBag.HasPrevious ? "disabled" : "")">
+                            <a class="page-link" asp-action="Index"
+                               asp-route-pageNumber="@(ViewBag.CurrentPage - 1)"
+                               asp-route-searchString="@ViewData["CurrentFilter"]">
+                                Anterior
+                            </a>
+                        </li>
+
+                        <!-- Numeração das Páginas -->
+                        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                        {
+                            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                <a class="page-link" asp-action="Index"
+                                   asp-route-pageNumber="@i"
+                                   asp-route-searchString="@ViewData["CurrentFilter"]">
+                                    @i
+                                </a>
+                            </li>
+                        }
+
+                        <!-- Botão Próxima -->
+                        <li class="page-item @(!ViewBag.HasNext ? "disabled" : "")">
+                            <a class="page-link" asp-action="Index"
+                               asp-route-pageNumber="@(ViewBag.CurrentPage + 1)"
+                               asp-route-searchString="@ViewData["CurrentFilter"]">
+                                Próxima
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
+            }
         </div>
     </div>
 </div>
