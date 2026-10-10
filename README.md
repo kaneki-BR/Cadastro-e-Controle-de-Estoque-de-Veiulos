@@ -10,6 +10,13 @@ Aplicação Web para cadastro e gerenciamento de estoque de veículos novos e se
 
 ---
 
+## 📸 Demonstração
+
+| :---: | :---: |
+| ![Index](docs/screenshots/index.jpg) | ![Index](docs/screenshots/index2.jpg) | ![Create](docs/screenshots/create.jpg) | ![Edit](docs/screenshots/edit.jpg) | ![Details](docs/screenshots/details.jpg) | ![Delete](docs/screenshots/delete.jpg) 
+
+---
+
 ## 🏛️ Arquitetura da Solução
 
 O projeto foi estruturado seguindo os princípios de **Clean Architecture / Separação de Responsabilidades**, dividindo o código em camadas bem definidas para facilitar manutenibilidade, testabilidade e evolução contínua:
