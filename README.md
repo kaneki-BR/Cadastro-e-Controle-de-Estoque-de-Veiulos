@@ -12,8 +12,11 @@ Aplicação Web para cadastro e gerenciamento de estoque de veículos novos e se
 
 ## 📸 Demonstração
 
+| Visão Geral do Sistema | Formulários e Ações |
 | :---: | :---: |
-| ![Index](docs/screenshots/index.jpg) | ![Index](docs/screenshots/index2.jpg) | ![Create](docs/screenshots/create.jpg) | ![Edit](docs/screenshots/edit.jpg) | ![Details](docs/screenshots/details.jpg) | ![Delete](docs/screenshots/delete.jpg) 
+| **Home / Hero Banner**<br>![Index](Revemar.Web/docs/screenshots/Index.jpg) | **Cadastro (Máscara R$)**<br>![Create](Revemar.Web/docs/screenshots/create.jpg) |
+| **Tabela & Paginação**<br>![Index2](Revemar.Web/docs/screenshots/Index2.jpg) | **Edição de Dados**<br>![Edit](Revemar.Web/docs/screenshots/edit.jpg) |
+| **Consulta Detalhada**<br>![Details](Revemar.Web/docs/screenshots/details.jpg) | **Inativação (Soft Delete)**<br>![Delete](Revemar.Web/docs/screenshots/delete.jpg) |
 
 ---
 
@@ -88,7 +91,7 @@ Abra o arquivo appsettings.json e atualize a chave ConnectionStrings:OracleConne
 ```bash
 {
   "ConnectionStrings": {
-    "OracleConnection": "User Id=SYSTEM;Password=SUA_SENHA;Data Source=localhost:1521/XEPDB1;"
+    "OracleConnection": "User Id=SYSTEM;Password=Herbert_Revemar;Data Source=localhost:1521/XEPDB1;"
   }
 }
 ```
